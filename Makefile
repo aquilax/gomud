@@ -3,7 +3,8 @@ include $(GOROOT)/src/Make.inc
 TARG    = gomud
 GOFILES = \
 	gomud.go\
-	vt100.go\
 	server.go\
+	vt100.go\
+	entity.go\
 
 include $(GOROOT)/src/Make.cmd
