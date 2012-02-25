@@ -6,5 +6,8 @@ GOFILES = \
 	server.go\
 	vt100.go\
 	entity.go\
+	attributes.go\
+	items.go\
+	money.go\
 
 include $(GOROOT)/src/Make.cmd
