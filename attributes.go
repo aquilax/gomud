@@ -1,19 +1,19 @@
 package main
 
 const (
-	strength = iota
-	health
-	agility
-	maxhitpoints
-	accuracy
-	dodging
-	strikedamage
-	damageabsorb
-	hpregen
-	numattributes
+	STRENGTH = iota
+	HEALTH
+	AGILITY
+	MAXHITPOINTS
+	ACCURACY
+	DODGING
+	STRIKEDAMAGE
+	DAMAGEABSORB
+	HPREGEN
+	NUMATTRIBUTES
 )
 
-type AttributeSet [numattributes]int
+type AttributeSet [NUMATTRIBUTES]int
 
 
 /*
