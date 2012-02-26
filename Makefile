@@ -10,5 +10,8 @@ GOFILES = \
 	items.go\
 	money.go\
 	player.go\
+	logon.go\
+	game.go\
+	handler.go\
 
 include $(GOROOT)/src/Make.cmd

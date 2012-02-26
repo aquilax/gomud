@@ -28,6 +28,6 @@ func main(){
 	var logfile *string = flag.String("logfile", "gomud.log", "filename of the log file to write to");
 
 	server := &Server{*port, getLogger(*logfile, *daemon), 0, 0}
-	server.log.Print("test")
-	server.Serve()
+	game := NewGame(server)
+	game.Start()
 }

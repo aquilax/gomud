@@ -15,6 +15,12 @@ type Item struct {
 	m_attributes AttributeSet
 }
 
+type ItemDatabase []Item
+
 func (i *Item) GetAttr(attribute int) (int) {
 	return i.m_attributes[attribute]
+}
+
+func NewItemDatabase() (*ItemDatabase) {
+	return &ItemDatabase{}
 }

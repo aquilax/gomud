@@ -5,10 +5,13 @@ import (
 	"net"
 	"log"
 	"fmt"
+	"bufio"
 )
 
-type Request struct {
-	conn net.Conn;
+type Connection struct {
+	conn net.Conn
+	buffer *bufio.ReadWriter
+	handler Handler
 }
 
 type Server struct {
@@ -18,8 +21,8 @@ type Server struct {
 	totalConnections int
 }
 
-func (server *Server) Handle (req *Request) {
-	req.conn.Write([]byte(red+"great now bye\n"))
+func (server *Server) Handle (c *Connection) {
+	c.SendString(red+"great now bye\n")
 	//req.conn.Close()
 	//server.connections--
 }
@@ -44,7 +47,26 @@ func (server *Server) Serve() {
 			server.log.Printf("connected: %s\n", conn.RemoteAddr())
 			server.connections++
 			server.totalConnections++
-			go server.Handle(&Request{conn})
+			go server.Handle(NewConnection(conn))
 		} 
 	}
+}
+
+func NewConnection(connection net.Conn) (*Connection) {
+	return &Connection{
+		conn: connection,
+		buffer :bufio.NewReadWriter(bufio.NewReader(connection), bufio.NewWriter(connection)),
+	}
+}
+
+func (c *Connection) SendString(text string) {
+	c.conn.Write([]byte(text))
+}
+
+func (c *Connection) BufferData(text string) {
+	c.buffer.Write([]byte(text))
+}
+
+func (c *Connection) SendBuffer() {
+	c.buffer.Flush()
 }

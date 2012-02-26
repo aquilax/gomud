@@ -17,6 +17,8 @@ type Room int
 
 type PlayerRank int8
 
+type PlayerDatabase []Player
+
 type Player struct {
 	//Player information
 	m_pass string
@@ -39,7 +41,7 @@ type Player struct {
 	m_weapon int
 	m_armor int
 
-	m_request Request
+	m_request *Connection
 	m_loggedin bool
 	m_active bool
 	m_newbie bool
@@ -255,3 +257,6 @@ func (p *Player) PrintStatbar(p_update bool) {
 	p.m_request.conn.Write([]byte(clearline + statbar + reset))
 }
 
+func NewPlayerDatabase() (*PlayerDatabase) {
+	return &PlayerDatabase{}
+}
