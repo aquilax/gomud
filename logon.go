@@ -10,6 +10,7 @@ const (
 type LogonState int
 
 type Logon struct {
+	Handler
 	m_state LogonState
 	m_errors int
 	m_name string

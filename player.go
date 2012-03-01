@@ -21,6 +21,7 @@ type PlayerDatabase []Player
 
 type Player struct {
 	//Player information
+	Entity
 	m_pass string
 	m_rank PlayerRank
 

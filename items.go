@@ -7,6 +7,7 @@ const (
 )
 
 type Item struct {
+	Entity
 	item_type int
 	m_min int
 	m_max int
