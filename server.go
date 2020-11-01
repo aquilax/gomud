@@ -1,28 +1,28 @@
 package main
 
 import (
-	"os"
-	"net"
-	"log"
-	"fmt"
 	"bufio"
+	"fmt"
+	"log"
+	"net"
+	"os"
 )
 
 type Connection struct {
-	conn net.Conn
-	buffer *bufio.ReadWriter
+	conn    net.Conn
+	buffer  *bufio.ReadWriter
 	handler Handler
 }
 
 type Server struct {
-	port int
-	log *log.Logger
-	connections int
+	port             int
+	log              *log.Logger
+	connections      int
 	totalConnections int
 }
 
-func (server *Server) Handle (c *Connection) {
-	c.SendString(red+"great now bye\n")
+func (server *Server) Handle(c *Connection) {
+	c.SendString(red + "great now bye\n")
 	//req.conn.Close()
 	//server.connections--
 }
@@ -48,14 +48,14 @@ func (server *Server) Serve() {
 			server.connections++
 			server.totalConnections++
 			go server.Handle(NewConnection(conn))
-		} 
+		}
 	}
 }
 
-func NewConnection(connection net.Conn) (*Connection) {
+func NewConnection(connection net.Conn) *Connection {
 	return &Connection{
-		conn: connection,
-		buffer :bufio.NewReadWriter(bufio.NewReader(connection), bufio.NewWriter(connection)),
+		conn:   connection,
+		buffer: bufio.NewReadWriter(bufio.NewReader(connection), bufio.NewWriter(connection)),
 	}
 }
 

@@ -15,7 +15,6 @@ const (
 
 type AttributeSet [NUMATTRIBUTES]int
 
-
 /*
 "Strength",
 "Halth",

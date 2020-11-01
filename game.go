@@ -1,17 +1,17 @@
 package main
 
 type Game struct {
-	server *Server
-	itemDatabase *ItemDatabase
+	server         *Server
+	itemDatabase   *ItemDatabase
 	playerDatabase *PlayerDatabase
-	running bool
+	running        bool
 }
 
-func NewGame(server *Server) (*Game){
+func NewGame(server *Server) *Game {
 	return &Game{
-		server: server,
-		running: false,
-		itemDatabase: NewItemDatabase(),
+		server:         server,
+		running:        false,
+		itemDatabase:   NewItemDatabase(),
 		playerDatabase: NewPlayerDatabase(),
 	}
 }

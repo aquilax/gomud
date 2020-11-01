@@ -11,10 +11,10 @@ type LogonState int
 
 type Logon struct {
 	Handler
-	m_state LogonState
-	m_errors int
-	m_name string
-	m_pass string
+	m_state      LogonState
+	m_errors     int
+	m_name       string
+	m_pass       string
 	p_connection *Connection
 }
 
@@ -28,5 +28,5 @@ func (l *Logon) Flooded() {
 
 func (l *Logon) Enter() {
 	//log
-	l.p_connection.SendString(red+bold+"Welcome"+newline+"Please enter your name or \"new\" if you are new: "+reset)
+	l.p_connection.SendString(red + bold + "Welcome" + newline + "Please enter your name or \"new\" if you are new: " + reset)
 }
