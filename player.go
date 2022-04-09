@@ -2,6 +2,7 @@ package main
 
 import (
 	"math"
+	"strconv"
 )
 
 const PLAYERITEMS = 16
@@ -253,7 +254,7 @@ func (p *Player) PrintStatbar(p_update bool) {
 	} else {
 		statbar += green
 	}
-	statbar += string(p.m_hitpoints) + white + "/" + string(p.GetAttr(MAXHITPOINTS)) + "] "
+	statbar += strconv.Itoa(p.m_hitpoints) + white + "/" + strconv.Itoa(p.GetAttr(MAXHITPOINTS)) + "] "
 	p.m_request.conn.Write([]byte(clearline + statbar + reset))
 }
 

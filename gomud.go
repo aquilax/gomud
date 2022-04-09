@@ -7,27 +7,32 @@ import (
 	"os"
 )
 
-func getLogger(logfile string, daemonized bool) (logger *log.Logger) {
-	logfp, err := os.OpenFile(fmt.Sprintf("%s", logfile), os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0666)
+func getLogger(logfile string, background bool) (*log.Logger, error) {
+	f, err := os.OpenFile(fmt.Sprintf("%s", logfile), os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0666)
 
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "couldn't open logfile `%s': %s\n", logfile, err)
-		os.Exit(1)
+		return nil, fmt.Errorf("couldn't open logfile `%s': %s\n", logfile, err)
+
 	}
-	if daemonized {
-		logger = log.New(logfp, "", log.Ldate|log.Ltime)
-	} else {
-		logger = log.New(os.Stdout, "", log.Ldate|log.Ltime)
+	if background {
+		return log.New(f, "", log.Ldate|log.Ltime), nil
 	}
-	return
+	return log.New(os.Stdout, "", log.Ldate|log.Ltime), nil
 }
 
 func main() {
+	var err error
+	var l *log.Logger
 	var port *int = flag.Int("port", 8099, "port to run server on")
-	var daemon *bool = flag.Bool("daemonize", false, "whether or not to daemonize process")
+	var background *bool = flag.Bool("background", false, "whether to run the process in the background")
 	var logfile *string = flag.String("logfile", "gomud.log", "filename of the log file to write to")
 
-	server := &Server{*port, getLogger(*logfile, *daemon), 0, 0}
-	game := NewGame(server)
-	game.Start()
+	l, err = getLogger(*logfile, *background)
+	server := NewServer(*port, l)
+
+	err = NewGame(server).Start()
+	if err != nil {
+		panic(err)
+		os.Exit(1)
+	}
 }

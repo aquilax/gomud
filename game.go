@@ -16,7 +16,10 @@ func NewGame(server *Server) *Game {
 	}
 }
 
-func (g *Game) Start() {
-	g.server.Serve()
+func (g *Game) Start() error {
+	err := g.server.Serve()
+	if err != nil {
+		return err
+	}
 	g.running = true
 }

@@ -21,6 +21,10 @@ type Server struct {
 	totalConnections int
 }
 
+func NewServer(port int, log *log.Logger) *Server {
+	return &Server{port, log, 0, 0}
+}
+
 func (server *Server) Handle(c *Connection) {
 	c.SendString(red + "great now bye\n")
 	//req.conn.Close()
@@ -31,7 +35,7 @@ func (server *Server) Logger() *log.Logger {
 	return server.log
 }
 
-func (server *Server) Serve() {
+func (server *Server) Serve() error {
 	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", server.port))
 	if err != nil {
 		server.log.Printf("cannot start server: %s\n", err)
